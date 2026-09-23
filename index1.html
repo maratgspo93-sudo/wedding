@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="hy"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Հարսանյաց օրվա ժամանակացույց</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@400;600&family=Noto+Serif+Armenian:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--night:#1d0b33;--ink:#2b1030;--gold:#ffc400;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(circle,rgba(255,255,255,.07) 0 2px,transparent 3px) 0 0/26px 26px,var(--night);color:#fff;font:400 15.5px/1.6 "Noto Sans Armenian",system-ui,sans-serif}
+h1,h2,.tm{font-family:"Noto Serif Armenian",Georgia,serif;margin:0;font-weight:800}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.nav{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:9;display:flex;gap:4px;padding:6px 8px;background:rgba(29,11,51,.85);backdrop-filter:blur(8px);border:2px solid rgba(255,255,255,.25);border-radius:40px;max-width:calc(100% - 16px)}
+.nav button{width:34px;height:34px;flex:none;border-radius:50%;border:0;padding:3px;background:#fff;cursor:pointer;transition:transform .35s,box-shadow .35s;opacity:.7}
+.nav button.on{transform:scale(1.28);opacity:1;box-shadow:0 0 0 3px var(--c)}
+.nav svg,.med svg{width:100%;height:100%;display:block}
+main{max-width:600px;margin:0 auto;padding:78px 14px 60px}
+.ttl{text-align:center;font:800 clamp(22px,7vw,34px)/1.25 "Noto Serif Armenian",Georgia,serif;margin:0 0 16px;padding:14px 12px;border-radius:24px;background:#fff;color:#d81f3a;border:4px solid var(--gold);box-shadow:0 6px 0 rgba(0,0,0,.25)}
+.hero{text-align:center;padding:30px 16px 34px;border-radius:32px;background:linear-gradient(135deg,#ff2d75,#ff7a1a 55%,#ffc400);color:var(--ink);margin-bottom:30px;border:4px solid #fff}
+.hero h1{font-size:clamp(32px,10vw,54px);line-height:1.1}
+.fruits{display:flex;justify-content:center;gap:6px}
+.fruits svg{width:76px;height:76px;animation:bob 3s ease-in-out infinite alternate}
+.fruits svg:nth-child(2){animation-delay:.5s}.fruits svg:nth-child(3){animation-delay:1s}
+@keyframes bob{to{transform:translateY(-8px) rotate(4deg)}}
+.chip{display:inline-block;background:var(--ink);color:#fff;border-radius:30px;padding:5px 16px;margin-top:12px;font-weight:600}
+.seg{margin-top:12px}.seg button{border:2px solid var(--ink);background:none;color:var(--ink);border-radius:30px;padding:5px 14px;font:600 14px inherit;font-family:inherit;cursor:pointer;margin:0 3px}
+.seg button.on{background:var(--ink);color:#fff}
+.pn{position:relative;margin-top:62px;padding:74px 20px 24px;border-radius:32px;text-align:center;border:4px solid #fff;color:var(--fg);
+background:radial-gradient(circle,rgba(255,255,255,.2) 0 5px,transparent 6px) 0 0/34px 34px,radial-gradient(circle,rgba(255,255,255,.2) 0 5px,transparent 6px) 17px 17px/34px 34px,var(--bg);
+opacity:0;transform:translateY(36px) scale(.94);transition:opacity .7s,transform .7s;overflow:visible}
+.pn.in{opacity:1;transform:none}
+.med{position:absolute;left:50%;top:-58px;width:116px;height:116px;margin-left:-58px;background:#fff;border-radius:50%;padding:14px;border:5px solid var(--gold);box-shadow:0 8px 0 rgba(0,0,0,.22);animation:bob 3.2s ease-in-out infinite alternate}
+.tm{font-size:clamp(40px,13vw,64px);line-height:1}
+.pn h2{font-size:22px;margin:8px 0 2px}
+.pl{display:inline-flex;gap:6px;align-items:center;font-weight:600}
+.tg{display:block;margin:16px auto 0;border:3px solid var(--fg);background:none;color:var(--fg);border-radius:30px;padding:8px 22px;font:600 15px inherit;font-family:inherit;cursor:pointer}
+.dt{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s}.dt>div{overflow:hidden}
+.open .dt,body.list .dt{grid-template-rows:1fr}
+.bx{margin-top:14px;padding:14px;border-radius:20px;background:var(--bx);text-align:left}
+.map{display:inline-flex;gap:8px;align-items:center;padding:8px 16px;border-radius:30px;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:600;margin-bottom:8px}
+.nt{display:flex;gap:8px;padding:3px 0}.nt svg{flex:none;margin-top:5px}
+.sub{display:flex;gap:12px;padding:6px 0;border-top:2px dashed currentColor;opacity:.95}.sub b{min-width:50px;font-family:"Noto Serif Armenian",serif}
+.cn{width:8px;height:44px;margin:0 auto;background:repeating-linear-gradient(var(--c) 0 9px,transparent 9px 18px);border-radius:4px}
+.r1,.r2,.fl{transform-box:fill-box}.r1{transform:translateX(-16px)}.r2{transform:translateX(16px)}.r1,.r2{transition:transform 1.3s .4s}
+.in .r1,.in .r2{transform:none}
+.fl{transform-origin:50% 100%;animation:fl .9s infinite alternate}@keyframes fl{to{transform:scale(.75,1.2) rotate(8deg)}}
+.cf{position:absolute;top:-10px;width:9px;height:14px;animation:fall 3.2s ease-in forwards;pointer-events:none;z-index:3}
+@keyframes fall{to{transform:translateY(420px) rotate(600deg);opacity:0}}
+.end{margin-top:40px;text-align:center;padding:24px;border-radius:32px;border:4px dashed var(--gold);font:800 20px "Noto Serif Armenian",serif}
+body.list .med,body.list .cn{display:none}body.list .pn{margin-top:20px;padding-top:24px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.pn{opacity:1;transform:none}}
+</style></head><body>
+<nav class="nav" id="nav" aria-label="Փուլեր"></nav>
+<main id="m">
+<div class="ttl">Հարսանյաց հրավիրատոմս<br>ժամանակացույց</div>
+<div class="hero"><div class="fruits" id="fr"></div><h1>Արամ և Նաիրա</h1><div class="chip" id="cd"></div>
+<div class="seg"><button class="on" data-m="">Պատմություն</button><button data-m="list">Ցանկ</button></div></div>
+</main>
+<script>
+const P='<circle cx="50" cy="56" r="32" fill="#d81f3a"/><path d="M36 30l7 9 7-12 7 12 7-9-3 16H39z" fill="#a3122b"/><circle cx="40" cy="56" r="4" fill="#ff8fa3"/><circle cx="60" cy="64" r="4" fill="#ff8fa3"/><circle cx="52" cy="76" r="3" fill="#ff8fa3"/>';
+const H='<path d="M50 88C10 60 14 22 36 22c9 0 14 6 14 12 0-6 5-12 14-12 22 0 26 38-14 66z" fill="#ff2d75"/><path d="M28 36q4-8 12-6" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/>';
+const A='<circle cx="50" cy="58" r="30" fill="#ff9a1f"/><path d="M50 30q4-18 24-16-2 18-24 16z" fill="#0b8558"/><path d="M50 30v14" stroke="#7a3d00" stroke-width="4"/><circle cx="40" cy="52" r="5" fill="#ffd27a"/>';
+const S=[
+{t:"08:00",e:"11:30",n:"Պատրաստություն",p:"Հարսի և փեսայի տներ",bg:"#e0236a",fg:"#fff",bx:"rgba(255,255,255,.18)",
+ic:'<circle cx="50" cy="38" r="26" fill="#ffd1e3" stroke="#e0236a" stroke-width="6"/><rect x="45" y="63" width="10" height="24" rx="5" fill="#ffb300"/><path d="M38 30q6-9 15-6" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M84 12l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#ffb300"/>',
+note:["Զգեստը և կոշիկները նախորդ օրը պատրաստ պահել","Նախաճաշել դիմահարդարումից առաջ"],sub:[["08:00","Սանրվածք և դիմահարդարում"],["10:00","Ֆոտոշարք տանը"],["11:00","Հագնվել"]]},
+{t:"12:00",e:"13:00",n:"Հարսնառ",p:"Հարսի տուն",bg:"#ff7a1a",fg:"#2b1030",bx:"rgba(255,255,255,.5)",
+ic:'<path d="M50 6c-7-9-19 1-9 10l9 8 9-8c10-9-2-19-9-10z" fill="#e0236a"/><path d="M10 68l8-20q3-6 10-6h36q7 0 11 6l14 14q6 2 6 9v4H10z" fill="#ff7a1a"/><path d="M26 47h18v14H22zM50 47h16l10 14H50z" fill="#bfe6ff"/><circle cx="30" cy="74" r="10" fill="#2b1030"/><circle cx="72" cy="74" r="10" fill="#2b1030"/><circle cx="30" cy="74" r="4" fill="#fff"/><circle cx="72" cy="74" r="4" fill="#fff"/>',
+note:["Փեսայի կողմը ժամանում է ծաղկեփնջով","Երթը կազմակերպել մեքենաների շարքով"],sub:[["12:00","Փեսայի ժամանումը"],["12:30","Ընտանեկան օրհնանք"],["12:50","Մեկնում դեպի ԶԱԳՍ"]]},
+{t:"13:30",e:"14:15",n:"Քաղաքացիական կացության ակտերի գրանցում",p:"ԶԱԳՍ",bg:"#1f5fe0",fg:"#fff",bx:"rgba(255,255,255,.18)",
+ic:'<g class="r1"><circle cx="36" cy="62" r="22" fill="none" stroke="#ffb300" stroke-width="9"/></g><g class="r2"><circle cx="64" cy="62" r="22" fill="none" stroke="#e0236a" stroke-width="9"/></g><path d="M50 8l10 11-10 13-10-13z" fill="#38d0ff" stroke="#1f5fe0" stroke-width="3"/>',
+note:["Անձնագրերը պարտադիր են","Վկաները ժամանում են 15 րոպե շուտ"],sub:[["13:30","Հավաքվել մուտքի մոտ"],["13:45","Արարողություն"],["14:10","Լուսանկարներ"]]},
+{t:"15:00",e:"16:00",n:"Եկեղեցական պսակադրություն",p:"Եկեղեցի",bg:"#6a2bd9",fg:"#fff",bx:"rgba(255,255,255,.18)",
+ic:'<path d="M18 88V50l32-25 32 25v38z" fill="#f3e6ff" stroke="#6a2bd9" stroke-width="5" stroke-linejoin="round"/><path d="M40 88V66a10 10 0 0120 0v22z" fill="#6a2bd9"/><path d="M50 4v18M42 12h16" stroke="#ffb300" stroke-width="6" stroke-linecap="round"/><circle cx="50" cy="44" r="6" fill="#ffb300"/><ellipse class="fl" cx="26" cy="74" rx="4" ry="7" fill="#ff7a1a"/><ellipse class="fl" cx="74" cy="74" rx="4" ry="7" fill="#ff7a1a"/>',
+note:["Ուսերը ծածկված հագուստ","Լուսանկարել միայն տեղադրված կետերից"],sub:[["15:00","Հյուրերի մուտք"],["15:20","Պսակադրություն"],["15:55","Շնորհավորանքներ"]]},
+{t:"16:30",e:"18:30",n:"Ֆոտոշարք և զբոսանք",p:"Նախընտրած զբոսայգի",bg:"#ffc400",fg:"#2b1030",bx:"rgba(255,255,255,.5)",
+ic:'<rect x="10" y="32" width="80" height="52" rx="10" fill="#ffc400" stroke="#2b1030" stroke-width="5"/><path d="M32 32l6-11h24l6 11z" fill="#2b1030"/><circle cx="50" cy="58" r="18" fill="#2b1030"/><circle cx="50" cy="58" r="10" fill="#38d0ff"/><circle cx="43" cy="52" r="3" fill="#fff"/><circle cx="78" cy="43" r="4" fill="#e0236a"/>',
+note:["Ոսկե ժամի լույսը ամենալավն է","Հարմար կոշիկներ պահեստում"],sub:[["16:30","Զույգի նկարներ"],["17:30","Խմբակային նկարներ"]]},
+{t:"19:00",e:"23:30",n:"Ռեստորանային խնջույք",p:"Հանդիսությունների սրահ",bg:"#0b8558",fg:"#fff",bx:"rgba(255,255,255,.18)",
+ic:'<path d="M22 14h24l-3 32q-1 12-9 12t-9-12z" fill="#ffe08a" stroke="#0b8558" stroke-width="4"/><path d="M54 14h24l-3 32q-1 12-9 12t-9-12z" fill="#ff8fb3" stroke="#0b8558" stroke-width="4"/><path d="M34 58v26M66 58v26M24 86h20M56 86h20" stroke="#0b8558" stroke-width="6" stroke-linecap="round"/><path d="M50 4l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#ffb300"/>',
+note:["Հյուրերի ընդունելություն 19:00-ից","Սեղանի համարը՝ մուտքի մոտ"],sub:[["19:00","Ողջույն և մուտք"],["19:30","Առաջին պար"],["20:00","Ընթրիք և կենացներ"],["22:00","Պարեր"]]},
+{t:"23:30",e:"00:00",n:"Տորթի կտրում և ավարտ",p:"Նույն սրահը",bg:"#d81f3a",fg:"#fff",bx:"rgba(255,255,255,.18)",
+ic:'<rect x="20" y="58" width="60" height="30" rx="6" fill="#d81f3a"/><rect x="30" y="38" width="40" height="22" rx="6" fill="#ff8fb3"/><path d="M20 68q7 8 15 0t15 0 15 0 15 0" stroke="#fff" stroke-width="4" fill="none"/><rect x="48" y="22" width="4" height="16" fill="#ffb300"/><ellipse class="fl" cx="50" cy="15" rx="4.5" ry="8" fill="#ff7a1a"/><circle cx="38" cy="48" r="3" fill="#fff"/><circle cx="62" cy="48" r="3" fill="#fff"/>',
+note:["Հյուրերը հավաքվում են տորթի շուրջ","Շնորհակալության խոսք"],sub:[["23:30","Տորթի կտրում"],["23:50","Հրաժեշտի ողջույն"]]}];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sv=(x,c)=>`<svg viewBox="0 0 100 100" aria-hidden="true">${x}</svg>`;
+const pin='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7z" fill="currentColor"/><circle cx="12" cy="9" r="2.6" fill="var(--bg)"/></svg>';
+const star='<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="currentColor"/></svg>';
+document.getElementById("fr").innerHTML=[P,H,A].map(x=>sv(x)).join("");
+const m=document.getElementById("m"),nav=document.getElementById("nav");
+S.forEach((s,i)=>{
+ const b=document.createElement("button");b.style.setProperty("--c",s.bg);b.innerHTML=sv(s.ic);b.setAttribute("aria-label",s.n);
+ b.onclick=()=>document.getElementById("s"+i).scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"center"});nav.appendChild(b);
+ if(i)m.insertAdjacentHTML("beforeend",`<div class="cn" style="--c:${s.bg}"></div>`);
+ m.insertAdjacentHTML("beforeend",`<section class="pn" id="s${i}" style="--bg:${s.bg};--fg:${s.fg};--bx:${s.bx}"><div class="med">${sv(s.ic)}</div>
+ <div class="tm">${s.t}–${s.e}</div><h2>${esc(s.n)}</h2><div class="pl">${pin}${esc(s.p)}</div>
+ <button class="tg" aria-expanded="false">Մանրամասներ</button>
+ <div class="dt"><div><div class="bx"><a class="map" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.p)}">${pin} Բացել քարտեզում</a>
+ ${s.note.map(n=>`<div class="nt">${star}<span>${esc(n)}</span></div>`).join("")}<div style="margin-top:8px">${s.sub.map(x=>`<div class="sub"><b>${x[0]}</b><span>${esc(x[1])}</span></div>`).join("")}</div></div></div></div></section>`);
+});
+m.insertAdjacentHTML("beforeend",'<div class="end">Շնորհակալություն, որ մեզ հետ եք այս օրը 💛</div>');
+const ps=[...document.querySelectorAll(".pn")],bs=[...nav.children];
+ps.forEach((p,i)=>{const b=p.querySelector(".tg");b.onclick=()=>{const o=p.classList.toggle("open");b.setAttribute("aria-expanded",o);b.textContent=o?"Թաքցնել":"Մանրամասներ"}});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add("in");
+ if(e.target.id==="s6"&&!e.target.dataset.cf){e.target.dataset.cf=1;const cl=["#ffc400","#fff","#ff2d75","#38d0ff"];
+ for(let k=0;k<44;k++){const c=document.createElement("span");c.className="cf";c.style.cssText=`left:${Math.random()*100}%;background:${cl[k%4]};animation-delay:${Math.random()*1.4}s`;e.target.appendChild(c)}}}),{threshold:.2});
+ps.forEach(p=>io.observe(p));
+const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=ps.indexOf(e.target);bs.forEach((b,k)=>b.classList.toggle("on",k===i))}}),{rootMargin:"-45% 0px -45% 0px"});
+ps.forEach(p=>io2.observe(p));
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".seg button").forEach(x=>x.classList.toggle("on",x===b));document.body.classList.toggle("list",!!b.dataset.m);ps.forEach(p=>p.classList.add("in"))});
+const D=new Date();D.setDate(D.getDate()+60);const td=Math.ceil((D.setHours(0,0,0,0)-new Date().setHours(0,0,0,0))/864e5);
+document.getElementById("cd").textContent=td>0?`Մնաց ${td} օր`:td===0?"Այսօր է ձեր օրը":"Շնորհավո՛ր ձեզ";
+</script></body></html>
